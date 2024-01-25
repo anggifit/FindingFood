@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import NavBar from '../Components/NavBar'
+import Header from './Header'
 import RecipesList from './RecipesList'
 
 const Homepage = () => {
+  const [searchTerm, setSearchTerm] = useState('')
+
   return (
-    <div 
-      className="bg-cover bg-center h-screen" 
-      style={{ backgroundImage: `url('./src/assets/bg-img.jpg')`}}
-    >
+    <div>
       <NavBar/>
-      <RecipesList/>
+      <Header setSearchTerm={setSearchTerm}/>
+      <RecipesList searchTerm={searchTerm}/>
     </div>
   )
 }

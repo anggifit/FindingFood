@@ -1,38 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const recipesURL = "https://www.themealdb.com/api/json/v1/1/categories.php";
 
-const RecipesList = () => {
-  const [recipeCategory, setRecipeCategory] = useState(null);
+const RecipesList = ({searchTerm}) => {
+  const recipesURL = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`;
+
+  const [recipeMeals, setRecipeMeals] = useState([]);
 
   useEffect(() => {
     axios.get(recipesURL)
       .then((response) => {
-        const categories = response.data.categories
-        setRecipeCategory(categories)
+        const meals = response.data.meals 
+        setRecipeMeals(meals)
       })
       .catch((error) => {
         console.error('Error al obtener las recetas:', error);
       });
-  }, []);
-
+  }, [searchTerm]);
+  
   return (
     <div style={{ marginTop: '58px'}}>
         <h2 className='text-black text-center text-2xl pt-6'>
         Find your recipe
         </h2>
-        {recipeCategory === null ? (
+        {recipeMeals === null ? (
             <p>Loading...</p>
         ) : (
-            <ul className='text-black text-center'>
-            {recipeCategory.map(category => (
-                <li key={category.idCategory}>
-                <p>{category.strCategory}</p>
-                </li>
-            ))}
-            </ul>
-        )}
+          recipeMeals.length === 0 ? (
+            <p>No recipes found.</p>
+          ) : (
+              <ul className='text-black text-center'>
+              {recipeMeals
+                .filter((meal) => {
+                  const mealDetails = `${meal.strMeal} ${meal.strInstructions}`.toLowerCase();
+                  return mealDetails.includes(searchTerm.toLowerCase());
+                }
+                )
+                .map(meal => (
+                  <li key={meal.strMeal}>
+                    <p>{meal.strMeal}</p>
+                  </li>
+              ))}
+              </ul>
+          ))}
     </div>
   );
 }
