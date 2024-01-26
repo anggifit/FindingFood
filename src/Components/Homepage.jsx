@@ -9,8 +9,7 @@ const Homepage = () => {
   return (
     <div>
       <NavBar/>
-      <Header setSearchTerm={setSearchTerm}/>
-      <RecipesList searchTerm={searchTerm}/>
+      <Header setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
     </div>
   )
 }

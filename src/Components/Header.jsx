@@ -1,7 +1,8 @@
 import React from 'react'
 import SearchBar from './SearchBar'
+import RecipesList from './RecipesList'
 
-const Header = ({setSearchTerm}) => {
+const Header = ({setSearchTerm, searchTerm}) => {
     return (
         <div>
             <section    
@@ -23,6 +24,7 @@ const Header = ({setSearchTerm}) => {
                     <div className="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
                         <SearchBar setSearchTerm={setSearchTerm}/>
                     </div>
+                    <RecipesList searchTerm={searchTerm} />
                 </div>
             </section>
         </div>

@@ -1,50 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import RecipeCard from './RecipeCard';
+import Loading from './Loading';
 
 
 const RecipesList = ({searchTerm}) => {
-  const recipesURL = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`;
+  const recipesByIngredientURL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${searchTerm}` 
 
   const [recipeMeals, setRecipeMeals] = useState([]);
 
   useEffect(() => {
-    axios.get(recipesURL)
+    axios.get(recipesByIngredientURL)
       .then((response) => {
-        const meals = response.data.meals 
-        setRecipeMeals(meals)
+        const mealsByIng = response.data.meals 
+        setRecipeMeals(mealsByIng)
       })
       .catch((error) => {
-        console.error('Error al obtener las recetas:', error);
+        console.error('Error al obtener los ingredientes:', error);
       });
-  }, [searchTerm]);
-  
+  }, [searchTerm, recipesByIngredientURL]);
+
   return (
     <div style={{ marginTop: '58px'}}>
-        <h2 className='text-black text-center text-2xl pt-6'>
-        Find your recipe
-        </h2>
         {recipeMeals === null ? (
-            <p>Loading...</p>
+            <Loading/>
         ) : (
           recipeMeals.length === 0 ? (
             <p>No recipes found.</p>
           ) : (
-              <ul className='text-black text-center'>
-              {recipeMeals
-                .filter((meal) => {
-                  const mealDetails = `${meal.strMeal} ${meal.strInstructions}`.toLowerCase();
-                  return mealDetails.includes(searchTerm.toLowerCase());
-                }
-                )
-                .map(meal => (
-                  <li key={meal.strMeal}>
-                    <p>{meal.strMeal}</p>
-                  </li>
-              ))}
-              </ul>
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4 mb-12">
+                <div className="mt-6 grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-x-6 gap-y-8">
+                  {recipeMeals.map(meal => (
+                      <RecipeCard
+                        key={meal.idMeal}
+                        mealImg={meal.strMealThumb}
+                        mealTitle={meal.strMeal}
+                      />
+                    ))}        
+                </div>
+            </section>
           ))}
     </div>
   );
 }
 
 export default RecipesList;
+
