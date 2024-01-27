@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import NavBar from '../Components/NavBar'
 import Header from './Header'
+import RecipeInfoCard from './RecipeInfoCard'
 import RecipesList from './RecipesList'
 
 const Homepage = () => {
