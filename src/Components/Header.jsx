@@ -15,7 +15,7 @@ const Header = ({setSearchTerm, searchTerm}) => {
                         style={{lineHeight: 1.5}}
                     >
                     CRAFTING HEALTH, <br/> 
-                    One Recipe at a Time    
+                    One Recipe at a Time  
                     </h1>
                     <p className="mb-8 text-[22px] font-normal text-black lg:text-xl sm:px-16 lg:px-48">
                         Explore healthy recipes curated for your well-being. <br/>
