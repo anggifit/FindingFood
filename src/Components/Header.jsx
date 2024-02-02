@@ -7,9 +7,12 @@ const Header = ({setSearchTerm, searchTerm}) => {
         <div>
             <section    
                 className="bg-cover bg-center h-screen"
-                style={{ backgroundImage: `url('./src/assets/bg-img.jpg')`}}
+                style={{ 
+                    backgroundImage: `url('./src/assets/bg-img.jpg')`, 
+                    backgroundAttachment: 'fixed',
+                }}
             >
-                <div className="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56">
+                <div className="px-4 mx-auto max-w-screen-xl text-center py-24 lg:py-56" data-testid='title'>
                     <h1 
                         className="mb-4 text-7xl font-bold text-lime-900 md:text-5xl lg:text-6xl"
                         style={{lineHeight: 1.5}}
